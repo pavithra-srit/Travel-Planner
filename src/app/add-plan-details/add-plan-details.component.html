@@ -1,0 +1,99 @@
+<div class="container-fluid">
+   <div>
+    <form #addPlanDetails="ngForm">
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="placeNameLabel" class="add-label mb-2" >Name of the Place</label>
+            <input type="text" id="placeNameLabel" 
+            [(ngModel)]="selectedPlaceName" class="form-control" (ngModelChange)="placeNameEvent($event)" 
+            name="place" placeholder="Enter Place to Visit">        </div>
+        <div class="col-md-3">
+            <label for="selectVaccation" class="add-label mb-2" >Vaccation Type</label>
+            <select id="selectVaccation"  class="form-select" name="Vaccation" 
+            (ngModelChange)="tripChangeEvent($event)" [(ngModel)]="selectedTrip">
+                <option  selected  disabled >Select</option>
+                <option *ngFor="let type of tripTypes" [value]="type.value">{{type.label}}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="bestLabel" class="add-label mb-2">Best Time</label>
+            <select id="bestLabel"  (ngModelChange)="bestTimeChangeEvent($event)"  
+            [(ngModel)]="selectedBestTime" name="besttime" class="form-select">
+                <option selected disabled>Select</option> 
+                <option *ngFor ="let bt of btArr" [value]="bt.value">{{bt.label}}</option>
+            </select>
+
+        </div>
+        <div class="col-md-3">
+            <label for="transportLabel" class="add-label mb-2">Mode of Transport</label>
+            <select id="transportLabel" (ngModelChange)="transportChangeEvent($event)"  
+            [(ngModel)]="selectedTransport" name="transport" class="form-select">
+                <option selected disabled>Select</option> 
+                <option *ngFor ="let trans of transportArr" [value]="trans.value">{{trans.label}}</option>
+            </select>
+        </div>
+
+    </div>
+     <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="durationLabel" class="add-label mb-2">Duration</label>
+          
+            <div  class="input-group">
+                <input type="number" id="durationLabel" class="form-control"
+                (ngModelChange)="durationChangeEvent($event)"   [(ngModel)]="selectedNumDuration" name="numDuration">
+                <select id="durationLabel" 
+                (ngModelChange)="timeChangeEvent($event)"  
+                [(ngModel)]="selectedDuration" name="duration" class="form-select">
+                    <option selected disabled>Select</option> 
+                    <option *ngFor ="let time of durationArr" [value]="time.value">{{time.label}}</option>
+                </select>  </div>
+        </div>
+        <!-- Date Picker -->
+        <div class="col-md-3">
+            <label for="startDateLabel" class="mb-2 add-label">Start Date</label>
+            <div class="input-group">
+                <input id ="startDateLabel"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"    (ngModelChange)="startDateChangeEvent($event)"  
+                    [(ngModel)]="selectedStartDate"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                />
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="endDateLabel" class="mb-2 add-label">End Date</label>
+            <div  class="input-group">
+                <input id ="endDateLabel"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dpE"  (ngModelChange)="endDateChangeEvent($event)"  
+                    [(ngModel)]="selectedEndDate"
+                    ngbDatepicker
+                    #de="ngbDatepicker"
+                />
+                <button class="btn btn-outline-secondary calendar" (click)="de.toggle()" type="button"></button>
+            </div>
+        </div>
+       
+
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="attractionLabel" class="mb-2 add-label">Attraction</label>
+        <br> <textarea name="attraction" id="attractionLabel"  (ngModelChange)="attractionChangeEvent($event)"  
+            [(ngModel)]="attractionNote" cols="79" rows="8"></textarea></div>
+            
+        <div class="col-md-6">
+            <label for="noteLabel" class="mb-2 add-label">Notes</label>
+           <br> <textarea name="note" id="noteLabel"  (ngModelChange)="noteChangeEvent($event)"  
+            [(ngModel)]="notes" cols="79" rows="8"></textarea>
+        </div>
+       
+
+    </div> 
+</form>
+   </div>
+    </div>

@@ -1,0 +1,26 @@
+.container-fluid{
+    padding-top: 5rem;
+   
+}
+.row{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: minmax(100px, auto);
+    gap: 20px;
+    padding-top: 1rem;
+}
+
+.img-text{
+    text-align: center;
+    display: inline-block;
+}
+.grid-img{
+    width: 100%;
+    object-fit: cover;
+    height: 150px; 
+}
+@media (prefers-reduced-motion: reduce) {
+    .fade {
+        transition: none;
+    }
+}

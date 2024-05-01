@@ -1,0 +1,65 @@
+ <div class="container-fluid">
+  <header>
+    <!-- <h2>{{planTitle}}</h2> -->
+  </header>
+<div>
+    <div class="d-flex">
+      <h2 class="left">{{planTitle}}</h2>
+      <div class="cp p-2" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openModal()"> <img src="../../assets/images/add.svg" alt="Add" class="img-thumbnail"></div>
+       <div class="cp p-2" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openModal()"> <img src="../../assets/images/view.svg" alt="View" class="img-thumbnail" ></div>
+       <div class="cp p-2" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openModal()"> <img src="../../assets/images/delete.svg" alt="Delte" class="img-thumbnail" ></div>
+      </div>
+</div>
+
+        <ngx-datatable
+        class="material fullscreen"
+        style="top: 52px"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="0"
+        [rowHeight]="50"
+        [scrollbarV]="true"
+        [scrollbarH]="true"
+        [rows]="rows"
+        [columns]="columns"
+        [rowIdentity]="rowIdentity"
+        [loadingIndicator]="loadingIndicator"
+        [selectionType]="SelectionType.checkbox"
+        [selected]="selected"
+        [selectAllRowsOnPage]="false"
+        (select)='onSelect($event)'
+      ></ngx-datatable> 
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-fullscreen-xxl-down">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{ModalHeading}}</h4>
+        <button type="button" class="btn-close"  (click)="closeModal()" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+                <!-- <ng-template> -->
+                  <app-add-plan-details (newItemEvent) ="GetChildData($event)"></app-add-plan-details>
+                <!-- </ng-template>      -->
+       </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-danger"
+        (click)="closeModal()" data-bs-dismiss="modal">Close</button> -->
+        <div *ngIf="enableAdd" ><button  type="button" class="btn btn-primary"
+        (click)="AddPlanModal()" data-bs-dismiss="modal">Add</button></div>
+        <div *ngIf="!enableAdd" ><button  type="button" class="btn btn-danger"
+          (click)="closeModal()" data-bs-dismiss="modal">Close</button></div>
+      </div>
+
+    </div>
+  </div>
+</div>

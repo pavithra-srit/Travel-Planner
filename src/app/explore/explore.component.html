@@ -1,0 +1,81 @@
+
+  <div class="container-fluid">
+    <header>
+        <h2>Places to Explore</h2>
+      
+    </header>
+    <div class="row">
+
+    <div data-bs-toggle="modal" data-bs-target="#myModal" (click)="openExploreModal()">
+    <img src="../../assets/images/switzerland.jpg" alt="switzerland"
+      
+    class="grid-img img-rounded img-fluid img-thumbnail">
+        <label class="img-text"   data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Switerzland</label>
+    </div>
+    <div>
+        <img src="../../assets/images/usa.jpg" alt="USA" class="grid-img img-rounded img-fluid img-thumbnail">
+        <label class="img-text">USA</label>
+    </div>
+    <div>
+        <img src="../../assets/images/india.jpg" alt="India" class="grid-img img-fluid img-thumbnail">
+        <label class="img-text">India</label>
+    </div>
+    <div>
+        <img src="../../assets/images/italy.jpg" alt="Italy" class="grid-img img-fluid img-thumbnail">
+        <label class="img-text">Italy</label>
+    </div>
+    <div>
+        <img src="../../assets/images/australia.jpg" alt="australia" class="grid-img img-fluid img-thumbnail">
+        <label class="img-text">Australia</label>
+    </div>
+    <div>
+        <img src="../../assets/images/japan.jpg" alt="Japan" class="grid-img img-fluid img-thumbnail">
+        <label class="img-text">Japan</label>
+    </div>
+
+        <div>
+            <img src="../../assets/images/france.jpg" alt="France" class="grid-img img-fluid img-thumbnail">
+            <label class="img-text">France</label>
+        </div>
+        <div>
+            <img src="../../assets/images/china.jpg" alt="China" class="grid-img img-fluid img-thumbnail">
+                <label class="img-text">China</label>
+            </div>
+        <div>
+            <img src="../../assets/images/thailand.jpg" alt="Thailand" class="grid-img img-fluid img-thumbnail">
+            <label class="img-text">Thailand</label>
+        </div>
+        <div>
+            <img src="../../assets/images/cannada.jpg" alt="Cannada" class="grid-img img-fluid img-thumbnail">
+            <label class="img-text">Cannada</label>
+        </div>
+</div>
+</div>
+
+
+  
+<!-- The Modal -->
+<div class="modal" id="exploreModal">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close"  (click)="closeExploreModal()" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+        (click)="closeExploreModal()" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
