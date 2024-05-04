@@ -8,13 +8,15 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { AddPlanDetailsComponent } from "./add-plan-details/add-plan-details.component";
 import { FormsModule, NgForm } from "@angular/forms";
 import { NgbDatepicker, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.component";
 
 @NgModule({
     declarations:[AppComponent, HomeComponent,
         AboutComponent,
         ExploreComponent,
         PlanComponent,
-        AddPlanDetailsComponent
+        AddPlanDetailsComponent,
+        ViewPlanDetailComponent
     ],
     imports:[HomeComponent, 
         NgxDatatableModule,

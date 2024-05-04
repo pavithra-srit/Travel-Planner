@@ -12,7 +12,7 @@
             <select id="selectVaccation"  class="form-select" name="Vaccation" 
             (ngModelChange)="tripChangeEvent($event)" [(ngModel)]="selectedTrip">
                 <option  selected  disabled >Select</option>
-                <option *ngFor="let type of tripTypes" [value]="type.value">{{type.label}}</option>
+                <option *ngFor="let type of tripTypes" [value]="type.label">{{type.label}}</option>
             </select>
         </div>
         <div class="col-md-3">
@@ -20,7 +20,7 @@
             <select id="bestLabel"  (ngModelChange)="bestTimeChangeEvent($event)"  
             [(ngModel)]="selectedBestTime" name="besttime" class="form-select">
                 <option selected disabled>Select</option> 
-                <option *ngFor ="let bt of btArr" [value]="bt.value">{{bt.label}}</option>
+                <option *ngFor ="let bt of btArr" [value]="bt.label">{{bt.label}}</option>
             </select>
 
         </div>
@@ -29,7 +29,7 @@
             <select id="transportLabel" (ngModelChange)="transportChangeEvent($event)"  
             [(ngModel)]="selectedTransport" name="transport" class="form-select">
                 <option selected disabled>Select</option> 
-                <option *ngFor ="let trans of transportArr" [value]="trans.value">{{trans.label}}</option>
+                <option *ngFor ="let trans of transportArr" [value]="trans.label">{{trans.label}}</option>
             </select>
         </div>
 
@@ -45,7 +45,7 @@
                 (ngModelChange)="timeChangeEvent($event)"  
                 [(ngModel)]="selectedDuration" name="duration" class="form-select">
                     <option selected disabled>Select</option> 
-                    <option *ngFor ="let time of durationArr" [value]="time.value">{{time.label}}</option>
+                    <option *ngFor ="let time of durationArr" [value]="time.label">{{time.label}}</option>
                 </select>  </div>
         </div>
         <!-- Date Picker -->
@@ -54,11 +54,11 @@
             <div class="input-group">
                 <input id ="startDateLabel"
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="yyyy-mm-dd" 
                     name="dp"    (ngModelChange)="startDateChangeEvent($event)"  
                     [(ngModel)]="selectedStartDate"
                     ngbDatepicker
-                    #d="ngbDatepicker"
+                    #d="ngbDatepicker" [minDate]="minStartDate" [maxDate]="maxStartDate"
                 />
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
             </div>
@@ -68,11 +68,11 @@
             <div  class="input-group">
                 <input id ="endDateLabel"
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="yyyy-mm-dd" 
                     name="dpE"  (ngModelChange)="endDateChangeEvent($event)"  
                     [(ngModel)]="selectedEndDate"
                     ngbDatepicker
-                    #de="ngbDatepicker"
+                    #de="ngbDatepicker" [minDate]="minEndDate" [maxDate]="maxEndDate"
                 />
                 <button class="btn btn-outline-secondary calendar" (click)="de.toggle()" type="button"></button>
             </div>

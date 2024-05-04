@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
-import { Component, Output, EventEmitter  } from '@angular/core';
+import { Component, Output, EventEmitter , Input, OnChanges, SimpleChanges, Injectable } from '@angular/core';
 import {  FormGroup, FormsModule, NgForm } from '@angular/forms';
-import { NgbDateStruct, NgbModule, NgbDatepickerModule  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModule, NgbDatepickerModule , NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { PlanComponent } from '../plan/plan.component';
 
 
@@ -15,21 +15,26 @@ import { PlanComponent } from '../plan/plan.component';
   templateUrl: './add-plan-details.component.html',
   styleUrl: './add-plan-details.component.scss'
 })
-export class AddPlanDetailsComponent {
+export class AddPlanDetailsComponent  implements  OnChanges{
+  
+  // planDetail = new FormGroup({});
+@Output()  newItemEvent = new EventEmitter<string[]>();
+@Input() addFlagValue : boolean = false
 
-// planDetail = new FormGroup({});
-@Output()  newItemEvent = new EventEmitter<string>();
+
+
+
+
 
   selectedPlaceName =""
   vaccationType = null
-  selectedTrip = "Select"
-  selectedBestTime = "Select"
-  selectedTransport = "Select"
+  selectedTrip = null
+  selectedBestTime = null
+  selectedTransport = null
   selectedNumDuration = ""
-  selectedDuration = "Select"
+  selectedDuration = null
   attractionNote = ""
   notes =""
-
 
   tripTypes = [
     {label:"Friends",value:1},
@@ -52,56 +57,71 @@ export class AddPlanDetailsComponent {
     {label:"Week",value:2},
     {label:"Month",value:3},
     {label:"Year",value:4}]
+    valuestoAddPlan :any[] =[]
 
 
     // Datepicker
     selectedStartDate :any;
-    selectedEndDate :any;
+    selectedEndDate : any  
+    maxEndDate :any
+    minEndDate :any
+    minStartDate :any
+    maxStartDate:any
+
+    
+  constructor( ) {
+  }
 
 
-    valuestoAddPlan =[]
+      ngOnChanges(changes: SimpleChanges): void {
+        console.log("ngOnChanges ------ ",this.addFlagValue)
+        let obj={
+          "place" : this.selectedPlaceName,
+          "vaccationType" : this.selectedTrip,
+          "besttime" : this.selectedBestTime,
+          "modeofTransport" : this.selectedTransport,
+          "duration" : this.selectedNumDuration + " " + this.selectedDuration,
+          "startdate" : this.selectedStartDate,
+          "enddate" : this.selectedEndDate, 
+          "attraction" : this.attractionNote,
+          "note" : this.notes
+        }
+        if(this.addFlagValue){
+          this.valuestoAddPlan.push(obj)
+          this.newItemEvent.emit(this.valuestoAddPlan);
+        }
 
+      }
     placeNameEvent(value:any){
-      console.log("PLACE",value)
       this.selectedPlaceName =value
-          this.newItemEvent.emit(this.selectedPlaceName);
     }
     tripChangeEvent(value:any){
-      console.log("trip",  value)
-
       this.selectedTrip = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
+        }
     bestTimeChangeEvent(value:any){
       this.selectedBestTime = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
+        }
     transportChangeEvent(value:any){
       this.selectedTransport = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
+        }
     durationChangeEvent(value:any){
       this.selectedNumDuration = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
+        }
     timeChangeEvent(value:any){
       this.selectedDuration = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    } 
-    startDateChangeEvent(value:any){
-      this.selectedStartDate = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
-    endDateChangeEvent(value:any){
-      this.selectedEndDate = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
+        } 
+    startDateChangeEvent(value:Date){   
+      this.selectedStartDate = value;
+      }
+
+    endDateChangeEvent(date :Date){
+      this.selectedEndDate = date;
+        }
     attractionChangeEvent(value:any){
       this.attractionNote = value
-          this.newItemEvent.emit(this.selectedPlaceName);
-    }
+        }
     noteChangeEvent(value:any){
       this.notes = value
-          this.newItemEvent.emit(this.selectedPlaceName);
     }
+
 }

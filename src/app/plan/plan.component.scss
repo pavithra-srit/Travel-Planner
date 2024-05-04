@@ -7,3 +7,17 @@
 .left{
     margin-right: auto;
 }
+
+.fade {
+    opacity: 0 !important;
+    transition: opacity 0.15s linear !important;
+  }
+  
+.fade:not(show) {
+    opacity: 1 !important;
+}
+
+#deleteModal{
+
+backdrop-filter: brightness(0.5) !important;
+}
