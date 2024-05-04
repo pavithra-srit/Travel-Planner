@@ -10,17 +10,44 @@
     padding-top: 1rem;
 }
 
-.img-text{
-    text-align: center;
-    display: inline-block;
-}
+// .img-text{
+//     text-align: center;
+//     display: inline-block;
+//     font-family:'Times New Roman', Times, serif;
+// }
 .grid-img{
     width: 100%;
     object-fit: cover;
     height: 150px; 
 }
-@media (prefers-reduced-motion: reduce) {
-    .fade {
-        transition: none;
-    }
+
+
+.fade {
+        opacity: 0 !important;
+        transition: opacity 0.15s linear !important;
+      }
+      
+.fade:not(show) {
+        opacity: 1 !important;
 }
+
+#exampleModal{
+    
+    backdrop-filter: brightness(0.5) !important;
+}
+
+.mcont{
+    margin-top: 5rem;
+}
+.cont-b{
+    // font-weight:bolder;
+    font-size: 16px;
+}
+
+.img-text{
+    text-align: center;
+    font-size: 18px;
+    font-family:'Times New Roman', Times, serif;
+
+}
+

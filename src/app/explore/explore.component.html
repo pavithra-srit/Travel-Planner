@@ -6,76 +6,282 @@
     </header>
     <div class="row">
 
-    <div data-bs-toggle="modal" data-bs-target="#myModal" (click)="openExploreModal()">
+    <div >
     <img src="../../assets/images/switzerland.jpg" alt="switzerland"
-      
+    data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
     class="grid-img img-rounded img-fluid img-thumbnail">
-        <label class="img-text"   data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Switerzland</label>
+ <div class="img-text">
+        <label  >Switzerland</label></div>
     </div>
     <div>
-        <img src="../../assets/images/usa.jpg" alt="USA" class="grid-img img-rounded img-fluid img-thumbnail">
-        <label class="img-text">USA</label>
+        <img src="../../assets/images/usa.jpg" alt="USA" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+        class="grid-img img-rounded img-fluid img-thumbnail">
+        <div class="img-text">
+          <label  >USA</label></div>
+      </div>    
+    <div>
+        <img src="../../assets/images/india.jpg" alt="India" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+        class="grid-img img-fluid img-thumbnail">
+        <div class="img-text">
+          <label  >India</label></div>
     </div>
     <div>
-        <img src="../../assets/images/india.jpg" alt="India" class="grid-img img-fluid img-thumbnail">
-        <label class="img-text">India</label>
+        <img src="../../assets/images/italy.jpg" alt="Italy" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+        class="grid-img img-fluid img-thumbnail">
+        <div class="img-text">
+          <label  >Italy</label>
+      </div>
     </div>
     <div>
-        <img src="../../assets/images/italy.jpg" alt="Italy" class="grid-img img-fluid img-thumbnail">
-        <label class="img-text">Italy</label>
-    </div>
+        <img src="../../assets/images/australia.jpg" alt="australia" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+        class="grid-img img-fluid img-thumbnail">
+        <div class="img-text">
+          <label  >Australia</label></div>
+      </div>
     <div>
-        <img src="../../assets/images/australia.jpg" alt="australia" class="grid-img img-fluid img-thumbnail">
-        <label class="img-text">Australia</label>
-    </div>
-    <div>
-        <img src="../../assets/images/japan.jpg" alt="Japan" class="grid-img img-fluid img-thumbnail">
-        <label class="img-text">Japan</label>
-    </div>
+        <img src="../../assets/images/japan.jpg" alt="Japan"
+        data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+        class="grid-img img-fluid img-thumbnail">
+        <div class="img-text">
+          <label  >Japan</label></div>
+      </div>
 
         <div>
-            <img src="../../assets/images/france.jpg" alt="France" class="grid-img img-fluid img-thumbnail">
-            <label class="img-text">France</label>
-        </div>
+            <img src="../../assets/images/france.jpg" alt="France"
+            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+            class="grid-img img-fluid img-thumbnail">
+            <div class="img-text">
+              <label  >France</label></div>
+          </div>       
         <div>
-            <img src="../../assets/images/china.jpg" alt="China" class="grid-img img-fluid img-thumbnail">
-                <label class="img-text">China</label>
-            </div>
+            <img src="../../assets/images/china.jpg" alt="China"
+            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+            class="grid-img img-fluid img-thumbnail">
+            <div class="img-text">
+              <label  >China</label></div>
+          </div>            
         <div>
-            <img src="../../assets/images/thailand.jpg" alt="Thailand" class="grid-img img-fluid img-thumbnail">
-            <label class="img-text">Thailand</label>
-        </div>
+            <img src="../../assets/images/thailand.jpg" alt="Thailand"
+            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+            class="grid-img img-fluid img-thumbnail">
+            <div class="img-text">
+              <label  >Thailand</label></div>
+          </div>      
         <div>
-            <img src="../../assets/images/cannada.jpg" alt="Cannada" class="grid-img img-fluid img-thumbnail">
-            <label class="img-text">Cannada</label>
-        </div>
+            <img src="../../assets/images/canada.jpg" alt="canada" 
+            data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="openExploreModal($event)"
+            class="grid-img img-fluid img-thumbnail">
+            <div class="img-text">
+              <label  >Canada</label></div>
+          </div>        
 </div>
 </div>
 
-
-  
-<!-- The Modal -->
-<div class="modal" id="exploreModal">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
+<!-- modal -->
+<div class="modal fade" id="exampleModal">
+  <div class="modal-dialog  modal-dialog-scrollable">
+    <div class="modal-content mcont">
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="btn-close"  (click)="closeExploreModal()" data-bs-dismiss="modal"></button>
+        <h5 class="modal-title">{{modalTitle}}</h5>
+        <button type="button" class="btn-close"  (click)="closeExploreModal()"
+         data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
-      <!-- Modal body -->
       <div class="modal-body">
-        Modal body..
-      </div>
+        <!-- switz -->
+        <div *ngIf="enableSwitz" > 
+          <img src="../../assets/images/switzerland.jpg" alt="switzerland"
+    class="grid-img img-rounded img-fluid img-thumbnail">
+      <p class="mt-2">  Switzerland is a mountainous Central European country, home to numerous
+             lakes, villages and the high peaks of the Alps. Its cities contain medieval quarters,
+              with landmarks like capital Bern’s Zytglogge clock tower and Lucerne’s wooden chapel
+               bridge. The country is also known for its ski resorts and hiking trails.
+                Banking and finance are key industries, and Swiss watches and chocolate are
+                 world renowned.</p>
+            <h6 class="pt-2">Official languages:</h6><span> Romansh, German, French, Italian</span><br>
+           <h6>Currency:</h6> Swiss Franc<br>
+           <h6>Dialing code:</h6> +41<br>
+           <h6>Population: </h6>8.776 million (2022) World Bank<br>
+           <h6>Area:</h6> 15,940 mi²<br>
+           <h6>Gross domestic product:</h6> 818.4 billion USD (2022) World Bank<br>
+           <h6>Government: </h6>Direct democracy, Federal republic, Directorial system 
+        </div>
 
-      <!-- Modal footer -->
+        <!-- usa -->
+        <div *ngIf="enableUsa" > 
+        <img src="../../assets/images/usa.jpg" alt="USA" 
+        class="grid-img img-rounded img-fluid img-thumbnail">
+        <p class="mt-2">
+          The U.S. is a country of 50 states covering a vast swath of North America, with Alaska in
+           the northwest and Hawaii extending the nation’s presence into the Pacific Ocean. 
+           Major Atlantic Coast cities are New York, a global finance and culture center, 
+           and capital Washington, DC. Midwestern metropolis Chicago is known for influential 
+           architecture and on the west coast, Los Angeles' Hollywood is famed for filmmaking. <br>
+          Capital: Washington, D.C. <br>
+          Government: Federation, Presidential system, Federal republic, Constitutional republic <br>
+          Speaker: Mike Johnson (Republican Party) <br>
+          Attorney general: Merrick Garland <br>
+          Continent: North America <br>
+          Dialing code: +1 <br>
+          Population: 333.3 million (2022) <br>
+        </p>
+      </div>
+        <!-- india -->
+        <div *ngIf="enableIndia" >
+          <img src="../../assets/images/india.jpg" alt="India" 
+          class="grid-img img-fluid img-thumbnail">
+          <p class="mt-2">
+            India, officially the Republic of India, is a country in South Asia. 
+             is the seventh-largest country by area; the most populous country as of June 2023 
+             and from the time of its independence in 1947, the world's most populous democracy. 
+             <br>
+            Capital: New Delhi<br>
+            Population: 1.417 billion (2022) World Bank<br>
+            Gross domestic product: 3.417 trillion USD (2022) World Bank<br>
+            National animal: magnificent tiger<br>
+            Demonym(s): Indian; others<br>
+            Dialing code: +91<br>
+            Government: Federal parliamentary republic
+          </p>
+        </div>
+
+        <!-- italy -->
+        <div *ngIf="enableItaly" >
+          <img src="../../assets/images/italy.jpg" alt="Italy" 
+          class="grid-img img-fluid img-thumbnail">
+          <p class="mt-2">
+            Italy, a European country with a long Mediterranean coastline, has left a powerful mark
+             on Western culture and cuisine. Its capital, Rome, is home to the Vatican as well as 
+             landmark art and ancient ruins. Other major cities include Florence, with Renaissance
+              masterpieces such as Michelangelo’s "David" and Brunelleschi's Duomo; Venice, the city 
+              of canals; and Milan, Italy’s fashion capital. <br>
+            Capital: Rome<br>
+            Population: 58.94 million (2022) World Bank<br>
+            Provinces: Autonomous Province of Bolzano – South Tyrol, MORE<br>
+            Government: Republic, Unitary state, Constitutional republic, Parliamentary republic<br>
+            Dialing code: +39<br>
+            Prime minister: Giorgia Meloni<br>
+            President: Sergio Mattarella
+          </p>
+        </div>
+
+        <!-- aus -->
+        <div *ngIf="enableAus" >
+          <img src="../../assets/images/australia.jpg" alt="australia" 
+          class="grid-img img-fluid img-thumbnail"> 
+          <p class="mt-2">
+            Australia, officially the Commonwealth of Australia, is a sovereign country comprising the
+             mainland of the Australian continent, the island of Tasmania, and numerous smaller
+              islands. Australia is the largest country by area in Oceania and the world's
+               sixth-largest country.<br>
+            Capital: Canberra<br>
+            Government: Parliamentary system, Representative democracy, Constitutional monarchy<br>
+            Population: 26.01 million (2022) World Bank<br>
+            Dialing code: +61<br>
+            Gross domestic product: 1.693 trillion USD (2022) World Bank<br>
+            GDP (nominal): 2024 estimate<br>
+            Area: 2.968 million mi²
+          </p>
+        </div>
+        <!-- japan -->
+        <div *ngIf="enableJapan" >
+          <img src="../../assets/images/japan.jpg" alt="Japan" class="grid-img img-fluid img-thumbnail">
+          <p class="mt-2">
+            Japan is an island country in East Asia. It is in the northwest Pacific Ocean and is
+             bordered on the west by the Sea of Japan, extending from the Sea of Okhotsk in the north
+              toward the East China Sea, Philippine Sea, and Taiwan in the south. <br>
+            Capital: Tokyo  <br>
+            Population: 125.1 million (2022) World Bank<br>
+            Government: Democracy, Unitary state, Parliamentary system, Constitutional monarchy<br>
+            Prime minister: Fumio Kishida<br>
+            Area: 145,936 mi²<br>
+            Dialing code: +81<br>
+            Consent age: 16 years<br>
+          </p>
+        </div>
+
+         <!-- France -->
+         <div *ngIf="enableFrance" >
+          <img src="../../assets/images/france.jpg" alt="France" class="grid-img img-fluid img-thumbnail">
+          <p class="mt-2">
+            France, in Western Europe, encompasses medieval cities, alpine villages and Mediterranean 
+            beaches. Paris, its capital, is famed for its fashion houses, classical art museums
+             including the Louvre and monuments like the Eiffel Tower. The country is also renowned 
+             for its wines and sophisticated cuisine. Lascaux’s ancient cave drawings, Lyon’s Roman
+              theater and the vast Palace of Versailles attest to its rich history. <br>
+            Capital: Paris<br>
+            Area: 213,011 mi²<br>
+            Population: 67.97 million (2022) World Bank<br>
+            Dialing code: +33<br>
+            Official language: French<br>
+            Founded: August 10, 843 AD<br>
+            National animal: the rooster<br>
+          </p>
+        </div>
+
+         <!-- China -->
+         <div *ngIf="enableChina" >
+          <img src="../../assets/images/china.jpg" alt="China" class="grid-img img-fluid img-thumbnail">
+
+          <p class="mt-2">
+            China, officially the People's Republic of China, is a country in East Asia. With a
+             population exceeding 1.4 billion, it is the world's second-most populous country. China 
+             spans the equivalent of five time zones and borders fourteen countries by land. <br>
+            Capital: Beijing<br>
+            Premier: Li Qiang<br>
+            President: Xi Jinping<br>
+            Provinces: Guangdong Province, Hainan, Fujian, Yunnan, MORE<br>
+            Official languages: Standard Zhuang, Mandarin, Uyghur<br>
+            Gross domestic product: 17.96 trillion USD (2022) World Bank<br>
+            Population: 1.412 billion (2022)
+          </p>
+        </div>
+         <!-- thailand -->
+         <div *ngIf="enableThailand" >
+          <img src="../../assets/images/thailand.jpg" alt="Thailand" class="grid-img img-fluid img-thumbnail">
+
+          <p class="mt-2">
+            Thailand is a Southeast Asian country. It's known for tropical beaches, opulent royal
+             palaces, ancient ruins and ornate temples displaying figures of Buddha. In Bangkok,
+              the capital, an ultramodern cityscape rises next to quiet canalside communities and 
+              the iconic temples of Wat Arun, Wat Pho and the Emerald Buddha Temple (Wat Phra Kaew).
+               Nearby beach resorts include bustling Pattaya and fashionable Hua Hin. <br>
+            Capital: Bangkok<br>
+            Currency: Thai Baht<br>
+            Official language: Thai<br>
+            King: Maha Vajiralongkorn<br>
+            Dialing code: +66<br>
+            Population: 71.7 million (2022) World Bank<br>
+            Prime minister: Srettha Thavisin
+          </p>
+        </div>
+         <!-- canada -->
+         <div *ngIf="enablecanada" >
+          <img src="../../assets/images/canada.jpg" alt="canada" class="grid-img img-fluid img-thumbnail">
+
+          <p class="mt-2">
+            Canada is a country in North America. Its ten provinces and three territories extend from
+             the Atlantic Ocean to the Pacific Ocean and northward into the Arctic Ocean, making it 
+             the world's second-largest country by total area, with the world's longest coastline. <br>
+            Capital: Ottawa<br>
+            Official languages: French, English<br>
+            Population: 38.93 million (2022) World Bank<br>
+            Dialing code: +1<br>
+            Government: Federation, Constitutional monarchy, Parliamentary democracy<br>
+            Prime minister: Justin Trudeau<br>
+            Gross domestic product: 2.138 trillion USD (2022)<br>
+          </p>
+        </div>
+       
+
+      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger"
+        <button type="button" class="btn btn-secondary" 
         (click)="closeExploreModal()" data-bs-dismiss="modal">Close</button>
       </div>
-
     </div>
   </div>
 </div>
