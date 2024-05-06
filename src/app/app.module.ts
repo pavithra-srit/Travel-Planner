@@ -9,6 +9,7 @@ import { AddPlanDetailsComponent } from "./add-plan-details/add-plan-details.com
 import { FormsModule, NgForm } from "@angular/forms";
 import { NgbDatepicker, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.component";
+import { LoginComponent } from "./login/login.component";
 
 @NgModule({
     declarations:[AppComponent, HomeComponent,
@@ -16,7 +17,8 @@ import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.com
         ExploreComponent,
         PlanComponent,
         AddPlanDetailsComponent,
-        ViewPlanDetailComponent
+        ViewPlanDetailComponent,
+        LoginComponent
     ],
     imports:[HomeComponent, 
         NgxDatatableModule,

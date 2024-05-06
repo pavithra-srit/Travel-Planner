@@ -1,0 +1,27 @@
+<!-- <p>login works!</p> -->
+<div class="container-fluid">
+     <video autoplay loop muted   class="login-video">
+<source 
+      src="../../assets/video/bg-video.mp4"      type="video/mp4" />
+</video>
+<img class="img-logo" src="../../assets/images/logo.jpg" alt="logo" 
+width="50" height="40">
+
+      <section class="content demo">
+        <div class="card-hghlght demo-card">
+                <h3 class="loginTitle pt-2">Login</h3>
+      <form class="form-login">
+      <div class="form-group pt-3">
+      <label for="userNameInput">User Name</label>
+      <input type="text" class="form-control" id="userNameInput"  placeholder="Enter User Name">
+      </div>
+      <div class="form-group pt-3 pb-3">
+      <label for="passwordInput">Password</label>
+      <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-outline" (click)="loginPlan($event)">Login</button>
+      </form>
+      </div>
+      </section> 
+
+</div>
