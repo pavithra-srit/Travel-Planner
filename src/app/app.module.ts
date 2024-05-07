@@ -10,6 +10,8 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { NgbDatepicker, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.component";
 import { LoginComponent } from "./login/login.component";
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations:[AppComponent, HomeComponent,
@@ -18,13 +20,15 @@ import { LoginComponent } from "./login/login.component";
         PlanComponent,
         AddPlanDetailsComponent,
         ViewPlanDetailComponent,
-        LoginComponent
+        LoginComponent,
+        NavBarComponent
     ],
     imports:[HomeComponent, 
         NgxDatatableModule,
         FormsModule,
         NgForm,
-        NgbModule
+        NgbModule,
+        RouterModule
     ],
     providers:[],
     bootstrap:[],

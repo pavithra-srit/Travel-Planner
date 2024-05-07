@@ -1,0 +1,26 @@
+
+.activeLink{
+    color: #239677;
+    // font-family:'Times New Roman', Times, serif;
+}
+.nav-link{
+  cursor: pointer;
+}
+.img {
+  display: block;
+}
+
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.caption{
+  font-family:'Times New Roman', Times, serif;
+  font-size: large;
+}

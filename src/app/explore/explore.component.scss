@@ -19,6 +19,7 @@
     width: 100%;
     object-fit: cover;
     height: 150px; 
+    border-radius: 10px;
 }
 
 
@@ -51,3 +52,40 @@
 
 }
 
+// cards
+
+.demo-card{
+    background: center;
+    background: linear-gradient(132deg, rgb(210, 209, 223) 0%, rgb(193 193 208) 0%, rgb(219 249 255) 100%);
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px -15px rgba(0,0,0,0.62);  
+    // height:350px;
+    // width:300px;  
+  }
+ 
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    pointer-events: none;
+    transition: all 0.4s;
+   
+  }
+  .card-text{
+    text-align: center;
+  }
+  .card-hghlght {
+    pointer-events: auto;
+    transform: scale(1);
+    transition: all 0.4s;
+  }
+  
+  .card-hghlght:hover {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  
+  .content:hover .card-hghlght:not(:hover) {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
