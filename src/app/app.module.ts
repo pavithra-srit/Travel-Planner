@@ -12,6 +12,8 @@ import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.com
 import { LoginComponent } from "./login/login.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { RouterModule } from "@angular/router";
+import { HttpClient , HttpClientModule, provideHttpClient} from "@angular/common/http";
+import { AppService}  from './app.service'
 
 @NgModule({
     declarations:[AppComponent, HomeComponent,
@@ -21,14 +23,17 @@ import { RouterModule } from "@angular/router";
         AddPlanDetailsComponent,
         ViewPlanDetailComponent,
         LoginComponent,
-        NavBarComponent
+        NavBarComponent,
+        AppService
     ],
     imports:[HomeComponent, 
         NgxDatatableModule,
         FormsModule,
         NgForm,
         NgbModule,
-        RouterModule
+        RouterModule,
+        HttpClientModule,
+        HttpClient
     ],
     providers:[],
     bootstrap:[],
