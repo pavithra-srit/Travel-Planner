@@ -31,14 +31,14 @@
       </div>
 </div>
 
-        <ngx-datatable
-        class="material fullscreen"
+        <ngx-datatable #myTable
+        class="material expandable"
         style="top: 52px"
         [columnMode]="ColumnMode.force"
         [headerHeight]="50"
         [footerHeight]="0"
         [rowHeight]="50"
-        [scrollbarV]="true"
+        [scrollbarV]="false"
         [scrollbarH]="true"
         [rows]="rows"
         [columns]="columns"
@@ -90,6 +90,13 @@
 </div>
 </div>
 
+<!-- Alert Message -->
+
+<div class="alert alert-success" role="alert">
+{{responseMsg}}</div>
+
+<div class="alert alert-danger" role="alert">
+  {{responseErrMsg}}</div>
 
 <!-- delete modal -->
 <div class="modal fade" id="deleteModal">

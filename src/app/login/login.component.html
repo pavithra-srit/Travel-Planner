@@ -11,15 +11,18 @@ width="50" height="40">
         <div class="card-hghlght demo-card">
                 <h3 class="loginTitle pt-2">Login</h3>
       <form class="form-login">
+
       <div class="form-group pt-3">
       <label for="userNameInput">User Name</label>
-      <input type="text" class="form-control" id="userNameInput"  placeholder="Enter User Name">
+      <input type="text" class="form-control" id="userNameInput"  name="name"
+      [(ngModel)]="userName"  (ngModelChange)="loginNameEvent($event)"  placeholder="Enter User Name">
       </div>
       <div class="form-group pt-3 pb-3">
       <label for="passwordInput">Password</label>
-      <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+      <input type="password" class="form-control" id="passwordInput" name="paswrd"
+      [(ngModel)]="userPassword" (ngModelChange)="loginPasswordEvent($event)"  placeholder="Password">
       </div>
-      <button type="submit" class="btn btn-outline" (click)="loginPlan($event)">Login</button>
+      <button type="button" class="btn btn-outline" (click)="loginPlan($event)">Login</button>
       </form>
       </div>
       </section> 

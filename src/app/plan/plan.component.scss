@@ -27,3 +27,8 @@ backdrop-filter: brightness(0.5) !important;
     height: 100vh;
     background-image:linear-gradient(rgb(153 186 198 / 30%), rgb(85 153 172 / 30%));
 }
+
+:host ::ng-deep .datatable-body{
+    // overflow-y: auto !important;
+    height: 60vh !important;
+}
