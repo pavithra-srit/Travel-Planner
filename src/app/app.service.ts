@@ -22,4 +22,10 @@ export class AppService {
   createPlanDetail(data:any):Observable<any>{
     return this.http.post('http://localhost:3000/plan/createPlan', data)
   }
+  deletePlanDetail(data:any):Observable<any>{
+    return this.http.delete('http://localhost:3000/plan/deletePlan',{body: data})
+  }
+  updatePlanDetail(data:any):Observable<any>{
+    return this.http.put('http://localhost:3000/plan/savePlan', data)
+  }
 }

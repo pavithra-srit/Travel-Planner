@@ -67,10 +67,14 @@ export class PlanComponent implements OnInit {
   ModalHeading =""
   enableAdd = false
   selectRowLength :Number
-  selectedRows :any
+  selectedRows : any[] = [];
   enableViewBtn = false
   enableDeleteBtn = false
   deleteModal = false
+  deleteRowsId :any
+  alertCond = false
+  alertErrCond = false
+  
   constructor( private service:AppService){
 
   }
@@ -136,27 +140,36 @@ export class PlanComponent implements OnInit {
         console.log("vvvvvvv", val)
 
       const obj={
-        id:this.generateRandNum,
-        place:val.place  ?? '-' ,
-        vaccationType:val.vaccationType ??'-',
-        besttime:val.besttime ??'-',
-        modeofTransport:val.modeofTransport ??'-',
-        duration:val.duration ?? '-',
-        startdate:val.startdate ??'-',
-        enddate:val.enddate ??'-',
-        attraction:val.attraction ??'-',
-        note:val.note ??'-'
+        id : this.generateRandNum,
+        place : val.place  ?? '-' ,
+        vaccationType : val.vaccationType ??'-',
+        besttime : val.besttime ??'-',
+        modeofTransport : val.modeofTransport ??'-',
+        duration : val.duration ?? '-',
+        startdate : val.startdate ??'-',
+        enddate : val.enddate ??'-',
+        attraction : val.attraction ??'-',
+        note : val.note ??'-'
       }
     
       this.service.createPlanDetail(obj).subscribe(res=>{
         if(res.status == 200){
-        this.responseMsg = res.msg
-        this.viewPlans()
+            this.alertCond = true
+            this.responseMsg = res.msg      
       }
-        else
-        this.responseErrMsg = res.msg
+        else  {
+          this.alertErrCond = true
+          this.responseErrMsg = res.msg
+        }
+        
+          this.viewPlans()
+          setTimeout(() => {
+            this.alertCond = false
+          }, 3000);
       })
+
     }
+
     }
     AddPlanModal(){
       this.addFlagValue = true
@@ -164,24 +177,34 @@ export class PlanComponent implements OnInit {
 
       this.closeModal()
     }
-
+   
     deletePlan(){
       this.deleteModal = true
-      
-      for (const deleterow of this.selectedRows){
-
-   for (const [i,row] of this.rows.entries()){
-    // console.log("row indexx",i)
-
-          // if(row.id === deleterow.id){
-          //  this.rows.splice(row.id,1)
-          
-          // console.log("indexxxxx",i)
-          // console.log("rowwww", deleterow.id)
-          // }
+     
+      this.deleteRowsId = this.selectedRows.map( (delRow) => delRow.id );
+     
+      const obj ={
+        "id" : this.deleteRowsId
       }
-      }
+      console.log("obj", obj)
+
+       this.service.deletePlanDetail(obj).subscribe(res=>{
+        if(res.status == 200){
+            this.responseMsg = res.msg
+            this.alertCond = true        
+          this.viewPlans()
+        }
+          else{
+              this.alertErrCond = true
+              this.responseErrMsg = res.msg
+        }
+
+        })
       this.closeDeleteModal()
+      setTimeout(() => {
+        this.alertCond = false
+      }, 3000);
+
     }
   
      
