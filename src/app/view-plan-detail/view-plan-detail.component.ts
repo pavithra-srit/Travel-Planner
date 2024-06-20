@@ -17,7 +17,7 @@ export class ViewPlanDetailComponent  implements OnInit{
 
 
   selectedPlaceName =""
-  vaccationType = ''
+  vacationType = ''
   selectedTrip = ''
   selectedBestTime = ''
   selectedTransport = ''

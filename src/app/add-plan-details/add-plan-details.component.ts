@@ -27,7 +27,7 @@ export class AddPlanDetailsComponent  implements  OnChanges{
 
 
   selectedPlaceName =""
-  vaccationType = null
+  vacationType = null
   selectedTrip = null
   selectedBestTime = null
   selectedTransport = null
@@ -44,7 +44,8 @@ export class AddPlanDetailsComponent  implements  OnChanges{
   btArr = [
     {label:"Spring",value:1},
     {label:"Summer",value:2},
-    {label:"Winter",value:3}]
+    {label:"Winter",value:3},
+    {label:"Fall",value:4}]
   transportArr = [
     {label:"Flight",value:1},
     {label:"Car",value:2},
@@ -63,13 +64,20 @@ export class AddPlanDetailsComponent  implements  OnChanges{
     // Datepicker
     selectedStartDate :any;
     selectedEndDate : any  
-    maxEndDate :any
-    minEndDate :any
-    minStartDate :any
-    maxStartDate:any
+    maxEndDate :NgbDateStruct;
+    minEndDate : NgbDateStruct;
+    minStartDate : NgbDateStruct; 
+    maxStartDate:NgbDateStruct
 
     
   constructor( ) {
+    const current = new Date();
+    this.minStartDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
+    
   }
 
 
@@ -77,7 +85,7 @@ export class AddPlanDetailsComponent  implements  OnChanges{
         console.log("ngOnChanges ------ ",this.addFlagValue)
         let obj={
           "place" : this.selectedPlaceName,
-          "vaccationType" : this.selectedTrip,
+          "vacationType" : this.selectedTrip,
           "besttime" : this.selectedBestTime,
           "modeofTransport" : this.selectedTransport,
           "duration" : this.selectedNumDuration + " " + this.selectedDuration,
@@ -112,6 +120,12 @@ export class AddPlanDetailsComponent  implements  OnChanges{
         } 
     startDateChangeEvent(value:Date){   
       this.selectedStartDate = value;
+      
+      this.minEndDate = {
+        year: this.selectedStartDate.year,
+        month: this.selectedStartDate.month,
+        day: this.selectedStartDate.day
+      };
       }
 
     endDateChangeEvent(date :Date){
