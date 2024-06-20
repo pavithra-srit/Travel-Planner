@@ -8,8 +8,8 @@
             [(ngModel)]="selectedPlaceName" class="form-control" (ngModelChange)="placeNameEvent($event)" 
             name="place" placeholder="Enter Place to Visit">        </div>
         <div class="col-md-3">
-            <label for="selectVaccation" class="add-label mb-2" >Vaccation Type</label>
-            <select id="selectVaccation"  class="form-select" name="Vaccation" 
+            <label for="selectVacation" class="add-label mb-2" >Vacation Type</label>
+            <select id="selectVacation"  class="form-select" name="Vacation" 
             (ngModelChange)="tripChangeEvent($event)" [(ngModel)]="selectedTrip">
                 <option  selected  disabled >Select</option>
                 <option *ngFor="let type of tripTypes" [value]="type.label">{{type.label}}</option>

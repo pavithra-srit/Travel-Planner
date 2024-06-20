@@ -4,7 +4,7 @@ import { AddPlanDetailsComponent } from '../add-plan-details/add-plan-details.co
 import { NgIf, NgStyle } from '@angular/common';
 import { ViewPlanDetailComponent } from '../view-plan-detail/view-plan-detail.component';
 import { AppService} from '../app.service';
-
+import moment from 'moment';
 
 @Component({
   selector: 'app-plan',
@@ -32,7 +32,7 @@ export class PlanComponent implements OnInit {
             checkboxable: true, width: 30},
             {prop:"id", name:"ID"},
             {prop:"place", name:"Place to vist"},
-            {prop:"vaccationType", name:"vaccation Type"},
+            {prop:"vacationType", name:"Vacation Type"},
             {prop:"besttime", name:"Best Time"},
             {prop:"modeofTransport", name:"Mode of Transport"},
             {prop:"duration", name:"Duration"},
@@ -45,21 +45,21 @@ export class PlanComponent implements OnInit {
   rows=[]
   // rows=[
   //   {
-  //     checkbox:"",id:1,place:"India",vaccationType:"Famiy",besttime:"Winter",modeofTransport:"flight",
+  //     checkbox:"",id:1,place:"India",vacationType:"Famiy",besttime:"Winter",modeofTransport:"flight",
   //     duration:"1 Month",startdate:"03-11-2024", enddate:"10-12-2024",
   //     attraction:"Taj Mahal, Marina Beach", note:"SunScreen"},
   //   {
-  //     checkbox:"",id:2,place:"Switzerland",vaccationType:"Friends",besttime:"Spring",modeofTransport:"Car",
+  //     checkbox:"",id:2,place:"Switzerland",vacationType:"Friends",besttime:"Spring",modeofTransport:"Car",
   //     duration:"15 Days",startdate:"10-03-2025", enddate:"25-03-2025",
   //     attraction:"Rhine Falls, Chapel Bridge", note :"Take Sweater"
   //   },
   //   {
-  //     checkbox:"",id:3,place:"Thailand",vaccationType:"Solo",besttime:"Summer",modeofTransport:"cruise",
+  //     checkbox:"",id:3,place:"Thailand",vacationType:"Solo",besttime:"Summer",modeofTransport:"cruise",
   //     duration:"1 week",startdate:"15-06-2024", enddate:"21-06-2024",
   //     attraction:"The Grand Palace", note:"-"
   //   },
   //   {
-  //     checkbox:"",id:4,place:"USA",vaccationType:"Friends and Family",besttime:"Winter",modeofTransport:"bike",
+  //     checkbox:"",id:4,place:"USA",vacationType:"Friends and Family",besttime:"Winter",modeofTransport:"bike",
   //     duration:"1 Month",startdate:"07-08-2024", enddate:"10-09-2024",
   //     attraction:"Niagara Falls", note:"note"
   //   },
@@ -137,17 +137,16 @@ export class PlanComponent implements OnInit {
 
       this.generateRandNum = Math.floor(Math.random() * 1000);
       for (const val of createValue) {
-        console.log("vvvvvvv", val)
-
+        
       const obj={
         id : this.generateRandNum,
         place : val.place  ?? '-' ,
-        vaccationType : val.vaccationType ??'-',
+        vacationType : val.vacationType ??'-',
         besttime : val.besttime ??'-',
         modeofTransport : val.modeofTransport ??'-',
         duration : val.duration ?? '-',
-        startdate : val.startdate ??'-',
-        enddate : val.enddate ??'-',
+        startdate : moment(val.startdate).month(moment(val.startdate).month()-1).format("DD-MM-YYYY") ??'-',
+        enddate :  moment(val.enddate).month(moment(val.enddate).month()-1).format("DD-MM-YYYY") ??'-',
         attraction : val.attraction ??'-',
         note : val.note ??'-'
       }
