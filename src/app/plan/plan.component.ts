@@ -5,19 +5,24 @@ import { NgIf, NgStyle } from '@angular/common';
 import { ViewPlanDetailComponent } from '../view-plan-detail/view-plan-detail.component';
 import { AppService} from '../app.service';
 import moment from 'moment';
+import { EditPlanDetailsComponent } from '../edit-plan-details/edit-plan-details.component';
 
 @Component({
   selector: 'app-plan',
   standalone: true,
   imports: [NgxDatatableModule,AddPlanDetailsComponent, NgIf, NgStyle,
-    ViewPlanDetailComponent
+    ViewPlanDetailComponent, EditPlanDetailsComponent
   ],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss'
 })
 export class PlanComponent implements OnInit {
 
-  addFlagValue =false
+  addFlagValue : any
+  startDateFormat:any
+  endDateFormat:any
+  editFlagValue = false
+  resetFlag = false
   ColumnMode = ColumnMode 
   loadingIndicator !:boolean
   selected = [];
@@ -70,10 +75,13 @@ export class PlanComponent implements OnInit {
   selectedRows : any[] = [];
   enableViewBtn = false
   enableDeleteBtn = false
+  enableEditBtn = false
   deleteModal = false
   deleteRowsId :any
   alertCond = false
   alertErrCond = false
+  enableSaveBtn = false
+  enableView = false
   
   constructor( private service:AppService){
 
@@ -90,7 +98,6 @@ export class PlanComponent implements OnInit {
     })
   }
   onSelect(row:any) {
-    console.log("rrrrr", row)
 
     if(row.selected.length > 0){
     this.selectedRows = row.selected
@@ -99,37 +106,55 @@ export class PlanComponent implements OnInit {
     if( this.selectedRows.length == 1){
       this.enableViewBtn = true
       this.enableDeleteBtn = true
+      this.enableEditBtn = true
     }
     else{
       this.enableViewBtn = false
+      this.enableEditBtn = false
     }
     if(row.selected.length == 0){
       this.enableViewBtn = false
       this.enableDeleteBtn = false
+      this.enableEditBtn = false
+
     }
   }
   rowIdentity = (row: any) => {
-    return row.place;
+    return row.id;
     }
     openAddModal() {
       const mymodal = document.getElementById('myModal');
       if(mymodal != null)
       mymodal.style.display = 'block';
       this.enableAdd = true
+      this.enableSaveBtn = false
+      this.enableView = false
       this.ModalHeading = "Add Plan"
     }
     openViewModal() {
       const mymodal = document.getElementById('myModal');
       if(mymodal != null)
       mymodal.style.display = 'block';
+      this.enableView = true
+      this.enableSaveBtn = false
       this.enableAdd = false
     this.ModalHeading = "View Plan"
+    }
+    openEditModal(){
+      const myModal = document.getElementById('myModal');
+      if(myModal != null)
+        myModal.style.display = 'block';
+      this.enableAdd = false
+      this.enableSaveBtn = true
+      this.enableView = false
+    this.ModalHeading = "Edit Plan"
     }
     closeModal() {
       const mymodal = document.getElementById("myModal");
       if(mymodal!= null)
       mymodal.style.display = "none";
     }
+   
     GetChildData(createValue:any){
       // randomIntFromInterval(min, max) { // min and max included 
       //   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -137,7 +162,14 @@ export class PlanComponent implements OnInit {
 
       this.generateRandNum = Math.floor(Math.random() * 1000);
       for (const val of createValue) {
-        
+
+        if(val.startdate !== null){
+         this.startDateFormat =  moment(val.startdate).month(moment(val.startdate).month()-1).format("YYYY-MM-DD")
+        }
+        if(val.enddate !== null){
+          this.endDateFormat =  moment(val.enddate).month(moment(val.enddate).month()-1).format("YYYY-MM-DD")
+         }
+
       const obj={
         id : this.generateRandNum,
         place : val.place  ?? '-' ,
@@ -145,8 +177,8 @@ export class PlanComponent implements OnInit {
         besttime : val.besttime ??'-',
         modeofTransport : val.modeofTransport ??'-',
         duration : val.duration ?? '-',
-        startdate : moment(val.startdate).month(moment(val.startdate).month()-1).format("DD-MM-YYYY") ??'-',
-        enddate :  moment(val.enddate).month(moment(val.enddate).month()-1).format("DD-MM-YYYY") ??'-',
+        startdate : this.startDateFormat   ??'-',
+        enddate :  this.endDateFormat ??'-',
         attraction : val.attraction ??'-',
         note : val.note ??'-'
       }
@@ -170,13 +202,58 @@ export class PlanComponent implements OnInit {
     }
 
     }
-    AddPlanModal(){
+
+    GetEditData(saveData:any){
+      for (const val of saveData) {
+        
+        let updateID = this.selectedRows.map(val => val.id)
+
+        const obj={
+          id : updateID[0],
+          place : val.place  ?? '-' ,
+          vacationType : val.vacationType ??'-',
+          besttime : val.besttime ??'-',
+          modeofTransport : val.modeofTransport ??'-',
+          duration : val.duration ?? '-',
+          startdate :  moment(val.startdate).month(moment(val.startdate).month()-1).format("YYYY-MM-DD") ??'-',
+          enddate :  moment(val.enddate).month(moment(val.enddate).month()-1).format("YYYY-MM-DD") ??'-',
+          attraction : val.attraction ??'-',
+          note : val.note ??'-'
+        }
+        console.log('const obj', obj)
+
+        this.service.updatePlanDetail(obj).subscribe(res=>{
+          if(res.status == 200){
+              this.alertCond = true
+              this.responseMsg = res.msg      
+        }
+          else  {
+            this.alertErrCond = true
+            this.responseErrMsg = res.msg
+          }
+          
+            this.viewPlans()
+            setTimeout(() => {
+              this.alertCond = false
+            }, 3000);
+        })
+  
+      }
+
+    }
+    AddPlanModal(...args: any[]){
       this.addFlagValue = true
       console.log("AddFlag add btn",this.addFlagValue)
 
       this.closeModal()
+      this.resetFlag = true
     }
-   
+
+    SavePlan(){
+      this.editFlagValue = true
+      this.closeModal()
+    }
+
     deletePlan(){
       this.deleteModal = true
      
@@ -185,7 +262,6 @@ export class PlanComponent implements OnInit {
       const obj ={
         "id" : this.deleteRowsId
       }
-      console.log("obj", obj)
 
        this.service.deletePlanDetail(obj).subscribe(res=>{
         if(res.status == 200){
@@ -203,7 +279,11 @@ export class PlanComponent implements OnInit {
       setTimeout(() => {
         this.alertCond = false
       }, 3000);
-
+        this.enableViewBtn = false
+        this.enableDeleteBtn = false
+        this.enableEditBtn = false
+        this.selected =[]
+        console.log("del rows", this.selected)
     }
   
      

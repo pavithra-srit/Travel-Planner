@@ -14,6 +14,7 @@ import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { RouterModule } from "@angular/router";
 import { HttpClient , HttpClientModule, provideHttpClient} from "@angular/common/http";
 import { AppService}  from './app.service'
+import { EditPlanDetailsComponent } from "./edit-plan-details/edit-plan-details.component";
 
 @NgModule({
     declarations:[AppComponent, HomeComponent,
@@ -22,6 +23,7 @@ import { AppService}  from './app.service'
         PlanComponent,
         AddPlanDetailsComponent,
         ViewPlanDetailComponent,
+        EditPlanDetailsComponent,
         LoginComponent,
         NavBarComponent,
         AppService
