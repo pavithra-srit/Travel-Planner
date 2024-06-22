@@ -18,6 +18,15 @@
       <!-- Add btn -->
       <div class="cp p-2" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openAddModal()"> <img src="../../assets/images/add.svg" alt="Add" class="img-thumbnail"></div>
     
+         <!-- edit btn -->
+         <div class="cp p-2" data-bs-toggle="modal"  *ngIf="enableEditBtn" 
+         data-bs-target="#myModal"  (click)="openEditModal()"  >
+          <img src="../../assets/images/edit.svg" alt="Edit" class="img-thumbnail"></div>
+          <div class="cp p-2" data-bs-toggle="modal"  *ngIf="!enableEditBtn"  data-bs-target="#myModal" >
+           <img src="../../assets/images/edit.svg" alt="Edit"
+           [ngStyle]="{'background-color': 'silver'}" class="img-thumbnail"></div>
+
+           
       <!-- view btn -->
        <div class="cp p-2" data-bs-toggle="modal"  *ngIf="enableViewBtn" 
        data-bs-target="#myModal"  (click)="openViewModal()"  >
@@ -74,13 +83,18 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-                <!-- <ng-template> -->
+                <!-- <ng-template ADD> -->
                   <div *ngIf="enableAdd" >   <app-add-plan-details [addFlagValue]="addFlagValue"
-                     (newItemEvent) ="GetChildData($event)"></app-add-plan-details></div>
-                     <div *ngIf="!enableAdd" >
-                      <app-view-plan-detail></app-view-plan-detail>
+                 [resetFlag]="resetFlag"    (newItemEvent) ="GetChildData($event)"></app-add-plan-details></div>
+                   <!-- <ng-template VIEW> -->
+                       <div *ngIf="enableView" >
+                      <app-view-plan-detail [selectedRow]="selectedRows"></app-view-plan-detail>
                      </div>
-                <!-- </ng-template>      -->
+                  <!-- <ng-template EDIT> -->
+                        <div *ngIf="enableSaveBtn" >
+                      <app-edit-plan-details [selectedRow]="selectedRows" [editFlagValue]="editFlagValue"
+                      [resetFlag]="resetFlag"  (updateItemEvent) ="GetEditData($event)"></app-edit-plan-details>
+                     </div>
        </div>
 
       <!-- Modal footer -->
@@ -89,8 +103,10 @@
         (click)="closeModal()" data-bs-dismiss="modal">Close</button> -->
         <div *ngIf="enableAdd" ><button  type="button" class="btn btn-primary"
         (click)="AddPlanModal()" data-bs-dismiss="modal">Add</button></div>
-        <div *ngIf="!enableAdd" ><button  type="button" class="btn btn-danger"
+        <div *ngIf="enableView" ><button  type="button" class="btn btn-danger"
           (click)="closeModal()" data-bs-dismiss="modal">Close</button></div>
+          <div *ngIf="enableSaveBtn" ><button  type="button" class="btn btn-primary"
+            (click)="SavePlan()" data-bs-dismiss="modal">Save</button></div>
       </div>
 
     </div>

@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, Output, EventEmitter , Input, OnChanges, SimpleChanges, Injectable } from '@angular/core';
+import { Component, Output, EventEmitter , Input, OnChanges,OnInit ,SimpleChanges,ChangeDetectorRef } from '@angular/core';
 import {  FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { NgbDateStruct, NgbModule, NgbDatepickerModule , NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { PlanComponent } from '../plan/plan.component';
@@ -15,11 +15,12 @@ import { PlanComponent } from '../plan/plan.component';
   templateUrl: './add-plan-details.component.html',
   styleUrl: './add-plan-details.component.scss'
 })
-export class AddPlanDetailsComponent  implements  OnChanges{
+export class AddPlanDetailsComponent  implements  OnInit,OnChanges{
   
   // planDetail = new FormGroup({});
 @Output()  newItemEvent = new EventEmitter<string[]>();
 @Input() addFlagValue : boolean = false
+@Input() resetFlag : boolean = false
 
 
 
@@ -70,7 +71,7 @@ export class AddPlanDetailsComponent  implements  OnChanges{
     maxStartDate:NgbDateStruct
 
     
-  constructor( ) {
+  constructor() {
     const current = new Date();
     this.minStartDate = {
       year: current.getFullYear(),
@@ -79,10 +80,12 @@ export class AddPlanDetailsComponent  implements  OnChanges{
     };
     
   }
-
-
+    ngOnInit(): void {
+      this.resetData()
+    }
+   
       ngOnChanges(changes: SimpleChanges): void {
-        console.log("ngOnChanges ------ ",this.addFlagValue)
+        console.log("ngOnChanges ------ ",changes,this.addFlagValue, this.resetFlag)
         let obj={
           "place" : this.selectedPlaceName,
           "vacationType" : this.selectedTrip,
@@ -94,9 +97,13 @@ export class AddPlanDetailsComponent  implements  OnChanges{
           "attraction" : this.attractionNote,
           "note" : this.notes
         }
+     
         if(this.addFlagValue){
           this.valuestoAddPlan.push(obj)
-          this.newItemEvent.emit(this.valuestoAddPlan);
+          this.newItemEvent.emit([...this.valuestoAddPlan]);
+        }
+        if(this.resetFlag){
+        this.resetData()
         }
 
       }
@@ -137,5 +144,16 @@ export class AddPlanDetailsComponent  implements  OnChanges{
     noteChangeEvent(value:any){
       this.notes = value
     }
-
+    resetData(){
+      this.selectedPlaceName =""
+      this.selectedTrip = null
+      this.selectedBestTime = null
+      this.selectedTransport = null
+      this.selectedNumDuration = ""
+      this.selectedDuration = null
+      this.selectedStartDate = null
+      this.selectedEndDate = null
+      this.attractionNote = ""
+      this.notes =""
+    }
 }

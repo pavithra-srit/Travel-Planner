@@ -4,7 +4,7 @@ import { Output, EventEmitter , Input, OnChanges, SimpleChanges, Injectable } fr
 import {  FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { NgbDateStruct, NgbModule, NgbDatepickerModule , NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { PlanComponent } from '../plan/plan.component';
-
+import { AppService} from '../app.service';
 
 @Component({
   selector: 'app-view-plan-detail',
@@ -15,6 +15,7 @@ import { PlanComponent } from '../plan/plan.component';
 })
 export class ViewPlanDetailComponent  implements OnInit{
 
+  @Input() selectedRow :any[]
 
   selectedPlaceName =""
   vacationType = ''
@@ -37,7 +38,8 @@ export class ViewPlanDetailComponent  implements OnInit{
   btArr = [
     {label:"Spring",value:1},
     {label:"Summer",value:2},
-    {label:"Winter",value:3}]
+    {label:"Winter",value:3},
+    {label:"Fall",value:4}]
   transportArr = [
     {label:"Flight",value:1},
     {label:"Car",value:2},
@@ -52,19 +54,48 @@ export class ViewPlanDetailComponent  implements OnInit{
     {label:"Year",value:4}]
     valuestoAddPlan :any[] =[]
 
-ngOnInit(): void {
-  
+     
+  constructor( private service:AppService){}
 
-  this.selectedPlaceName ="Switzerland"
-  this.selectedTrip = 'Friends'
-  this.selectedBestTime = 'Spring'
-  this.selectedTransport = 'Car'
-  this.selectedNumDuration = "15"
-  this.selectedDuration = "Day"
-  this.attractionNote = 'Rhine Falls, Chapel Bridge'
-  this.notes ="Take Sweater"
-  this.selectedEndDate = {"day": 25,  "month": 3,"year": 2025,}
-  this.selectedStartDate =  {"day": 10,  "month": 3,"year": 2025,}
-}
+  ngOnInit(): void {
+
+    this.service.getPlanDetail().subscribe(res=>{
+
+      this.selectedRow.forEach((element) => {
+        for (const val of res) {
+          if(val.id === element.id){
+
+            let durationVal = val.duration.split(" ")
+            let StartDateFormat =  new Date(val.startdate)
+            let endDateFormat =  new Date(val.enddate)
+
+        this.selectedPlaceName = val.place
+        this.selectedTrip = val.vacationType
+        this.selectedBestTime = val.besttime
+        this.selectedTransport = val.modeofTransport
+        this.selectedNumDuration = durationVal[0]
+        this.selectedDuration = durationVal[1]
+        this.selectedStartDate = {
+          year: StartDateFormat.getFullYear(),
+          month: StartDateFormat.getMonth() + 1,
+          day: StartDateFormat.getDate()
+        }
+        this.selectedEndDate = {
+          year: endDateFormat.getFullYear(),
+          month: endDateFormat.getMonth() + 1,
+          day: endDateFormat.getDate()
+        };
+        this.attractionNote = val.attraction
+        this.notes =val.note
+
+      }
+      }
+    
+      })
+    })
+  }
   
 }
+
+
+
