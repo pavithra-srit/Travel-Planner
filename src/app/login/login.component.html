@@ -15,12 +15,20 @@ width="50" height="40">
       <div class="form-group pt-3">
       <label for="userNameInput">User Name</label>
       <input type="text" class="form-control" id="userNameInput"  name="name"
-      [(ngModel)]="userName"  (ngModelChange)="loginNameEvent($event)"  placeholder="Enter User Name">
+      [(ngModel)]="userName"  (ngModelChange)="loginNameEvent($event)"  placeholder="Enter User Name" required>
+      <!-- Username error message using @if -->
+      @if (usernameError) {
+        <div class="text-danger pt-1">{{ usernameError }}</div>
+      }
       </div>
       <div class="form-group pt-3 pb-3">
       <label for="passwordInput">Password</label>
       <input type="password" class="form-control" id="passwordInput" name="paswrd"
-      [(ngModel)]="userPassword" (ngModelChange)="loginPasswordEvent($event)"  placeholder="Password">
+      [(ngModel)]="userPassword" (ngModelChange)="loginPasswordEvent($event)"  placeholder="Password" required>
+      <!-- Password error message -->
+       @if(passwordError){
+      <div  class="text-danger pt-1">{{ passwordError }}</div>
+      }
       </div>
       <button type="button" class="btn btn-outline" (click)="loginPlan($event)">Login</button>
       </form>
