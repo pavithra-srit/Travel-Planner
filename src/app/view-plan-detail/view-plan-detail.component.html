@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div>
-     <form #addPlanDetails="ngForm">
+     <form #addPl
+     anDetails="ngForm">
      <div class="row mb-3">
          <div class="col-md-3">
              <label for="placeNameLabel" class="add-label mb-2" >Name of the Place</label>
@@ -8,7 +9,7 @@
              [(ngModel)]="selectedPlaceName" class="form-control" 
              name="place" placeholder="Enter Place to Visit">        </div>
          <div class="col-md-3">
-             <label for="selectVaccation" class="add-label mb-2" >Vacation Type</label>
+             <label for="selectVaccation" class="add-label mb-2" >Companion Type</label>
              <select id="selectVaccation"  class="form-select" name="Vaccation" disabled
                  [(ngModel)]="selectedTrip">
                  <option  selected  disabled >Select</option>

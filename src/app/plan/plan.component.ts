@@ -37,7 +37,7 @@ export class PlanComponent implements OnInit {
             checkboxable: true, width: 30},
             {prop:"id", name:"ID"},
             {prop:"place", name:"Place to vist"},
-            {prop:"vacationType", name:"Vacation Type"},
+            {prop:"vacationType", name:"Companion Type"},
             {prop:"besttime", name:"Best Time"},
             {prop:"modeofTransport", name:"Mode of Transport"},
             {prop:"duration", name:"Duration"},
