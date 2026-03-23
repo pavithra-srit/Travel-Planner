@@ -58,7 +58,6 @@ describe('AddPlanDetailsComponent', () => {
       }
     } as any);
 
-    // Assert: emit should be triggered with plan object including selected place name
     expect(component.newItemEvent.emit).toHaveBeenCalled();
     const emittedArg = (component.newItemEvent.emit as jasmine.Spy).calls.mostRecent().args[0];
     expect(Array.isArray(emittedArg)).toBeTrue();
