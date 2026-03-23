@@ -1,99 +1,186 @@
 <div class="container-fluid">
-   <div>
-    <form #addPlanDetails="ngForm">
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <label for="placeNameLabel" class="add-label mb-2" >Name of the Place</label>
-            <input type="text" id="placeNameLabel" 
-            [(ngModel)]="selectedPlaceName" class="form-control" (ngModelChange)="placeNameEvent($event)" 
-            name="place" placeholder="Enter Place to Visit">        </div>
-        <div class="col-md-3">
-            <label for="selectVacation" class="add-label mb-2" >Companion Type</label>
-            <select id="selectVacation"  class="form-select" name="Vacation" 
-            (ngModelChange)="tripChangeEvent($event)" [(ngModel)]="selectedTrip">
-                <option  selected  disabled >Select</option>
-                <option *ngFor="let type of tripTypes" [value]="type.label">{{type.label}}</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label for="bestLabel" class="add-label mb-2">Best Time</label>
-            <select id="bestLabel"  (ngModelChange)="bestTimeChangeEvent($event)"  
-            [(ngModel)]="selectedBestTime" name="besttime" class="form-select">
-                <option selected disabled>Select</option> 
-                <option *ngFor ="let bt of btArr" [value]="bt.label">{{bt.label}}</option>
-            </select>
-
-        </div>
-        <div class="col-md-3">
-            <label for="transportLabel" class="add-label mb-2">Mode of Transport</label>
-            <select id="transportLabel" (ngModelChange)="transportChangeEvent($event)"  
-            [(ngModel)]="selectedTransport" name="transport" class="form-select">
-                <option selected disabled>Select</option> 
-                <option *ngFor ="let trans of transportArr" [value]="trans.label">{{trans.label}}</option>
-            </select>
-        </div>
-
-    </div>
-     <div class="row mb-3">
-        <div class="col-md-3">
-            <label for="durationLabel" class="add-label mb-2">Duration</label>
-          
-            <div  class="input-group">
-                <input type="number" id="durationLabel" class="form-control"
-                (ngModelChange)="durationChangeEvent($event)"   [(ngModel)]="selectedNumDuration" name="numDuration">
-                <select id="durationLabel" 
-                (ngModelChange)="timeChangeEvent($event)"  
-                [(ngModel)]="selectedDuration" name="duration" class="form-select">
-                    <option selected disabled>Select</option> 
-                    <option *ngFor ="let time of durationArr" [value]="time.label">{{time.label}}</option>
-                </select>  </div>
-        </div>
-        <!-- Date Picker -->
-        <div class="col-md-3">
-            <label for="startDateLabel" class="mb-2 add-label">Start Date</label>
-            <div class="input-group">
-                <input id ="startDateLabel"
+    <form #addPlanForm="ngForm" (ngSubmit)="onSubmit(addPlanForm)">
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="placeName" class="add-label mb-2">Name of the Place</label>
+                <input
+                    id="placeName"
+                    name="place"
                     class="form-control"
-                    placeholder="yyyy-mm-dd" 
-                    name="dp"    (ngModelChange)="startDateChangeEvent($event)"  
-                    [(ngModel)]="selectedStartDate"
-                    ngbDatepicker
-                    #d="ngbDatepicker" [minDate]="minStartDate" [maxDate]="maxStartDate"
+                    required
+                    placeholder="Enter place to visit"
+                    [(ngModel)]="selectedPlaceName"
+                    #place="ngModel"
+                    (ngModelChange)="placeNameEvent($event)"
                 />
-                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                <div class="text-danger mt-1" *ngIf="place.invalid && place.touched" role="alert">
+                    <span *ngIf="place.errors?.required">Place name is required.</span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="companionType" class="add-label mb-2">Companion Type</label>
+                <select
+                    id="companionType"
+                    name="companionType"
+                    class="form-select"
+                    required
+                    [(ngModel)]="selectedTrip"
+                    #companion="ngModel"
+                    (ngModelChange)="tripChangeEvent($event)"
+                >
+                    <option value="" disabled selected>Select</option>
+                    <option *ngFor="let type of tripTypes" [value]="type.label">{{ type.label }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="companion.invalid && companion.touched" role="alert">
+                    Please select a companion type.
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="bestTime" class="add-label mb-2">Best Time</label>
+                <select
+                    id="bestTime"
+                    name="bestTime"
+                    class="form-select"
+                    required
+                    [(ngModel)]="selectedBestTime"
+                    #best="ngModel"
+                    (ngModelChange)="bestTimeChangeEvent($event)"
+                >
+                    <option value="" disabled selected>Select</option>
+                    <option *ngFor="let bt of btArr" [value]="bt.label">{{ bt.label }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="best.invalid && best.touched" role="alert">
+                    Please select the best time.
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="transport" class="add-label mb-2">Mode of Transport</label>
+                <select
+                    id="transport"
+                    name="transport"
+                    class="form-select"
+                    required
+                    [(ngModel)]="selectedTransport"
+                    #transport="ngModel"
+                    (ngModelChange)="transportChangeEvent($event)"
+                >
+                    <option value="" disabled selected>Select</option>
+                    <option *ngFor="let trans of transportArr" [value]="trans.label">{{ trans.label }}</option>
+                </select>
+                <div class="text-danger mt-1" *ngIf="transport.invalid && transport.touched" role="alert">
+                    Please select a transport mode.
+                </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <label for="endDateLabel" class="mb-2 add-label">End Date</label>
-            <div  class="input-group">
-                <input id ="endDateLabel"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd" 
-                    name="dpE"  (ngModelChange)="endDateChangeEvent($event)"  
-                    [(ngModel)]="selectedEndDate"
-                    ngbDatepicker
-                    #de="ngbDatepicker" [minDate]="minEndDate" [maxDate]="maxEndDate"
-                />
-                <button class="btn btn-outline-secondary calendar" (click)="de.toggle()" type="button"></button>
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="durationNum" class="add-label mb-2">Duration</label>
+                <div class="input-group">
+                    <input
+                        id="durationNum"
+                        name="numDuration"
+                        type="number"
+                        min="1"
+                        class="form-control"
+                        required
+                        [(ngModel)]="selectedNumDuration"
+                        #numDuration="ngModel"
+                        (ngModelChange)="durationChangeEvent($event)"
+                    />
+                    <select
+                        id="durationUnit"
+                        name="durationUnit"
+                        class="form-select"
+                        required
+                        [(ngModel)]="selectedDuration"
+                        #durationUnit="ngModel"
+                        (ngModelChange)="timeChangeEvent($event)"
+                    >
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let time of durationArr" [value]="time.label">{{ time.label }}</option>
+                    </select>
+                </div>
+                <div class="text-danger mt-1" *ngIf="(numDuration.invalid && numDuration.touched) || (durationUnit.invalid && durationUnit.touched)" role="alert">
+                    Duration is required.
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="startDate" class="mb-2 add-label">Start Date</label>
+                <div class="input-group">
+                    <input
+                        id="startDate"
+                        name="startDate"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        required
+                        ngbDatepicker
+                        #d="ngbDatepicker"
+                        [(ngModel)]="selectedStartDate"
+                        (ngModelChange)="startDateChangeEvent($event)"
+                        [minDate]="minStartDate"
+                        [maxDate]="maxStartDate"
+                        #start="ngModel"
+                    />
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" aria-label="Toggle start date"></button>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="endDate" class="mb-2 add-label">End Date</label>
+                <div class="input-group">
+                    <input
+                        id="endDate"
+                        name="endDate"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        required
+                        ngbDatepicker
+                        #de="ngbDatepicker"
+                        [(ngModel)]="selectedEndDate"
+                        (ngModelChange)="endDateChangeEvent($event)"
+                        [minDate]="minEndDate"
+                        [maxDate]="maxEndDate"
+                        #end="ngModel"
+                    />
+                    <button class="btn btn-outline-secondary calendar" (click)="de.toggle()" type="button" aria-label="Toggle end date"></button>
+                </div>
             </div>
         </div>
-       
 
-    </div>
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label for="attractionLabel" class="mb-2 add-label">Attraction</label>
-        <br> <textarea name="attraction" id="attractionLabel"  (ngModelChange)="attractionChangeEvent($event)"  
-            [(ngModel)]="attractionNote" cols="79" rows="8"></textarea></div>
-            
-        <div class="col-md-6">
-            <label for="noteLabel" class="mb-2 add-label">Notes</label>
-           <br> <textarea name="note" id="noteLabel"  (ngModelChange)="noteChangeEvent($event)"  
-            [(ngModel)]="notes" cols="79" rows="8"></textarea>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="attraction" class="mb-2 add-label">Attraction</label>
+                <textarea
+                    id="attraction"
+                    name="attraction"
+                    class="form-control"
+                    [(ngModel)]="attractionNote"
+                    (ngModelChange)="attractionChangeEvent($event)"
+                    rows="6"
+                ></textarea>
+            </div>
+
+            <div class="col-md-6">
+                <label for="notes" class="mb-2 add-label">Notes</label>
+                <textarea
+                    id="notes"
+                    name="notes"
+                    class="form-control"
+                    [(ngModel)]="notes"
+                    (ngModelChange)="noteChangeEvent($event)"
+                    rows="6"
+                ></textarea>
+            </div>
         </div>
-       
 
-    </div> 
-</form>
-   </div>
-    </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="addPlanForm.invalid">Save Plan</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</div>
