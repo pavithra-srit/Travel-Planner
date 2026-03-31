@@ -9,6 +9,12 @@ import { AddPlanDetailsComponent } from "./add-plan-details/add-plan-details.com
 import { FormsModule, NgForm } from "@angular/forms";
 import { NgbDatepicker, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.component";
+import { LoginComponent } from "./login/login.component";
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
+import { RouterModule } from "@angular/router";
+import { HttpClient , HttpClientModule, provideHttpClient} from "@angular/common/http";
+import { AppService}  from './app.service'
+import { EditPlanDetailsComponent } from "./edit-plan-details/edit-plan-details.component";
 
 @NgModule({
     declarations:[AppComponent, HomeComponent,
@@ -16,13 +22,20 @@ import { ViewPlanDetailComponent } from "./view-plan-detail/view-plan-detail.com
         ExploreComponent,
         PlanComponent,
         AddPlanDetailsComponent,
-        ViewPlanDetailComponent
+        ViewPlanDetailComponent,
+        EditPlanDetailsComponent,
+        LoginComponent,
+        NavBarComponent,
+        AppService
     ],
     imports:[HomeComponent, 
         NgxDatatableModule,
         FormsModule,
         NgForm,
-        NgbModule
+        NgbModule,
+        RouterModule,
+        HttpClientModule,
+        HttpClient
     ],
     providers:[],
     bootstrap:[],
