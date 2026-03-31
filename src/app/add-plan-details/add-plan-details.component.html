@@ -13,9 +13,13 @@
                     #place="ngModel"
                     (ngModelChange)="placeNameEvent($event)"
                 />
-                <div class="text-danger mt-1" *ngIf="place.invalid && place.touched" role="alert">
-                    <span *ngIf="place.errors?.required">Place name is required.</span>
-                </div>
+                @if (place.invalid && place.touched) {
+                    <div class="text-danger mt-1" role="alert">
+                        @if (place.errors?.['required']) {
+                            <span>Place name is required.</span>
+                        }
+                    </div>
+                }
             </div>
 
             <div class="col-md-3">
@@ -30,11 +34,15 @@
                     (ngModelChange)="tripChangeEvent($event)"
                 >
                     <option value="" disabled selected>Select</option>
-                    <option *ngFor="let type of tripTypes" [value]="type.label">{{ type.label }}</option>
+                    @for ( type of tripTypes; track $index) {
+                        <option [value]="type.label">{{ type.label }}</option>
+                    }
                 </select>
-                <div class="text-danger mt-1" *ngIf="companion.invalid && companion.touched" role="alert">
-                    Please select a companion type.
-                </div>
+                @if (companion.invalid && companion.touched) {
+                    <div class="text-danger mt-1" role="alert">
+                        Please select a companion type.
+                    </div>
+                }
             </div>
 
             <div class="col-md-3">
@@ -49,11 +57,15 @@
                     (ngModelChange)="bestTimeChangeEvent($event)"
                 >
                     <option value="" disabled selected>Select</option>
-                    <option *ngFor="let bt of btArr" [value]="bt.label">{{ bt.label }}</option>
+                    @for ( bt of btArr; track $index) {
+                        <option [value]="bt.label">{{ bt.label }}</option>
+                    }
                 </select>
-                <div class="text-danger mt-1" *ngIf="best.invalid && best.touched" role="alert">
-                    Please select the best time.
-                </div>
+                @if (best.invalid && best.touched) {
+                    <div class="text-danger mt-1" role="alert">
+                        Please select the best time.
+                    </div>
+                }
             </div>
 
             <div class="col-md-3">
@@ -68,11 +80,15 @@
                     (ngModelChange)="transportChangeEvent($event)"
                 >
                     <option value="" disabled selected>Select</option>
-                    <option *ngFor="let trans of transportArr" [value]="trans.label">{{ trans.label }}</option>
+                    @for ( trans of transportArr; track $index) {
+                        <option [value]="trans.label">{{ trans.label }}</option>
+                    }
                 </select>
-                <div class="text-danger mt-1" *ngIf="transport.invalid && transport.touched" role="alert">
-                    Please select a transport mode.
-                </div>
+                @if (transport.invalid && transport.touched) {
+                    <div class="text-danger mt-1" role="alert">
+                        Please select a transport mode.
+                    </div>
+                }
             </div>
         </div>
 
@@ -101,12 +117,16 @@
                         (ngModelChange)="timeChangeEvent($event)"
                     >
                         <option value="" disabled selected>Select</option>
-                        <option *ngFor="let time of durationArr" [value]="time.label">{{ time.label }}</option>
+                        @for ( time of durationArr; track $index) {
+                            <option [value]="time.label">{{ time.label }}</option>
+                        }
                     </select>
                 </div>
-                <div class="text-danger mt-1" *ngIf="(numDuration.invalid && numDuration.touched) || (durationUnit.invalid && durationUnit.touched)" role="alert">
-                    Duration is required.
-                </div>
+                @if ((numDuration.invalid && numDuration.touched) || (durationUnit.invalid && durationUnit.touched)) {
+                    <div class="text-danger mt-1" role="alert">
+                        Duration is required.
+                    </div>
+                }
             </div>
 
             <div class="col-md-3">

@@ -1,4 +1,4 @@
-import { Component,EventEmitter,OnInit, Output } from '@angular/core';
+import { Component,EventEmitter,OnInit, Output, signal } from '@angular/core';
 import { Router , ActivatedRoute} from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { Observable } from 'rxjs';
@@ -18,49 +18,49 @@ export class LoginComponent implements OnInit{
 
     constructor(private router: Router, private route: ActivatedRoute,
       private service:AppService){}
-    userName=""
-    userPassword =""
-    passwordError: string = "";
-    usernameError: string = "";
+    userName= signal("");
+    userPassword =signal("");
+    passwordError=signal<string>("");
+    usernameError = signal<string>("");
 
     ngOnInit(): void {
       
   }
   
   loginNameEvent(value:any){
-      this.userName = value
+      this.userName.set(value)
     }
 
   loginPasswordEvent(value:any){
-      this.userPassword = value
+      this.userPassword.set(value)
     }  
 
   validateUsername() {
-    if (!this.userName) {
-      this.usernameError = "Username is required.";
+    if (!this.userName()) {
+      this.usernameError.set("Username is required.");
       return false;
     }
-    if (this.userName.length < 3) {
-      this.usernameError = "Username must be at least 3 characters.";
+    if (this.userName().length < 3) {
+      this.usernameError.set("Username must be at least 3 characters.");
       return false;
     }
-    if (!/^[a-zA-Z0-9_]+$/.test(this.userName)) {
-      this.usernameError = "Username can only contain letters, numbers, and underscores.";
+    if (!/^[a-zA-Z0-9_]+$/.test(this.userName())) {
+      this.usernameError.set("Username can only contain letters, numbers, and underscores.");
       return false;
     }
-    this.usernameError = "";
+    this.usernameError.set("");
     return true;
   }
   validatePassword() {
-    if (!this.userPassword) {
-      this.passwordError = "Password is required.";
+    if (!this.userPassword()) {
+      this.passwordError.set("Password is required.");
       return false;
     }
-    if (this.userPassword.length < 8) {
-      this.passwordError = "Password must be at least 8 characters.";
+    if (this.userPassword().length < 8) {
+      this.passwordError.set("Password must be at least 8 characters.");
       return false;
     }
-    this.passwordError = "";
+    this.passwordError.set("");
     return true;
   }
   loginPlan(e:any){
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit{
       }
 
       this.service.getUserDetail(data).subscribe(res=>{
-        sessionStorage.setItem('userToken',this.userName )
+        sessionStorage.setItem('userToken',this.userName() )
         this.router.navigate(['user/home'])      })
     
     // }

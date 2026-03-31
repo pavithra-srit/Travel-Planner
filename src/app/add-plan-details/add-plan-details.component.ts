@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, Output, EventEmitter , Input, OnChanges,OnInit ,SimpleChanges,ChangeDetectorRef } from '@angular/core';
 import {  FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { NgbDateStruct, NgbModule, NgbDatepickerModule , NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +10,7 @@ import { PlanComponent } from '../plan/plan.component';
 @Component({
   selector: 'app-add-plan-details',
   standalone: true,
-  imports: [FormsModule,NgFor,NgbModule,NgbDatepickerModule, PlanComponent],
+  imports: [FormsModule,NgbModule,NgbDatepickerModule, PlanComponent],
   templateUrl: './add-plan-details.component.html',
   styleUrl: './add-plan-details.component.scss'
 })
@@ -144,6 +143,37 @@ export class AddPlanDetailsComponent  implements  OnInit,OnChanges{
     noteChangeEvent(value:any){
       this.notes = value
     }
+
+    onSubmit(form: NgForm){
+      if(!form || form.invalid){
+        form?.control.markAllAsTouched();
+        return;
+      }
+
+      const plan = {
+        place: this.selectedPlaceName,
+        vacationType: this.selectedTrip,
+        bestTime: this.selectedBestTime,
+        modeOfTransport: this.selectedTransport,
+        duration: `${this.selectedNumDuration} ${this.selectedDuration}`,
+        startDate: this.selectedStartDate,
+        endDate: this.selectedEndDate,
+        attraction: this.attractionNote,
+        note: this.notes
+      };
+
+      this.valuestoAddPlan.push(plan);
+      this.newItemEvent.emit([...this.valuestoAddPlan]);
+
+      this.resetData();
+      form.resetForm();
+    }
+
+    onCancel(){
+      this.resetData();
+      // optionally clear form state if form reference is available in template
+    }
+
     resetData(){
       this.selectedPlaceName =""
       this.selectedTrip = null
